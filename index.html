@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobile Price Estimation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <h1>Mobile Price Estimation</h1>
+    <p class="subtitle">Enter mobile specifications to estimate its price.</p>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form action="/predict" method="post">
+      <label>Battery Power (mAh)<input type="number" name="battery_power" min="1" required value="{{ values.get('battery_power', 3000) }}"></label>
+      <label>RAM (MB)<input type="number" name="ram" min="1" required value="{{ values.get('ram', 4096) }}"></label>
+      <label>Pixel Height<input type="number" name="px_height" min="1" required value="{{ values.get('px_height', 1920) }}"></label>
+      <label>Pixel Width<input type="number" name="px_width" min="1" required value="{{ values.get('px_width', 1080) }}"></label>
+      <label>Internal Memory (GB)<input type="number" name="int_memory" min="1" required value="{{ values.get('int_memory', 128) }}"></label>
+      <label>Mobile Weight (g)<input type="number" name="mobile_wt" min="1" required value="{{ values.get('mobile_wt', 180) }}"></label>
+      <button type="submit">Estimate Price</button>
+    </form>
+    {% if prediction is not none %}
+      <section class="result">
+        <h2>Estimated Price</h2>
+        <p>₹ {{ "%.2f"|format(prediction) }}</p>
+        <small>Demonstration estimate from a synthetic training dataset, not a real market quote.</small>
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>
