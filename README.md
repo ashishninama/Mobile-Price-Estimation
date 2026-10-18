@@ -28,11 +28,11 @@ python app.py
 
 Open the application in your browser:
 
-http://127.0.0.1:5000
+http://13.53.130.100:5000
 
 Health check:
 
-http://127.0.0.1:5000/health
+http://13.53.130.100:5000/health 
 
 ## Run Tests
 
